@@ -38,6 +38,10 @@
     width: 94%;
   }
   
+  .remove {
+    display: none;
+}
+
   p {
     font-size: 1.2rem;
   }
