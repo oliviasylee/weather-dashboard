@@ -5,7 +5,8 @@ var currentWeatherEl = document.getElementById("currentWeather");
 var fivedayEl = document.getElementById("fivedayWeather");
 var searchEl = document.getElementById("search-button");
 var cityEl = document.getElementById("enter-city");
-let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+var historyEl = document.getElementById("history");
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 const key="1362316676e7462ce8cb9c952d85a52f"
 
@@ -17,7 +18,8 @@ var formSubmitHandler = function (event) {
   getCityWeather(cityName);
   searchHistory.push(cityName);
   localStorage.setItem("search", JSON.stringify(searchHistory));
-  // renderSearchHistory();
+  displaySearchHistory();
+  // Add "if city name === null, it won't save in local storage" later
 
   if (cityName) {
     getCityWeather(cityName);
@@ -61,7 +63,7 @@ function getCityWeather(city) {
           console.log(data.weather[0].icon);
           console.log(iconUrl);
           
-          // icon is an object, {icon: '02n'}, object inside array
+          // Icon is an object, {icon: '02n'}, object inside array
           var todayIcon = document.createElement('img');
           todayIcon.src = iconUrl;
           document.getElementById('cityTitle').appendChild(todayIcon);
@@ -95,7 +97,7 @@ function getCityWeather(city) {
         
             fivedayEl.classList.remove("d-none");
         
-    // loop for 5-day forecast Date + icon, Temp, Wind, Humidity
+    // loop for 5-day forecast date + icon, temp, wind, humidity
         const forecastEls = document.querySelectorAll(".forecast");
         
     for (i = 0; i < forecastEls.length; i++) {
@@ -104,41 +106,48 @@ function getCityWeather(city) {
     var iconUrl = "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png";
           var forecastWeatherEl = document.createElement('div');
 
-          // 5-day Date
           const forecastDate = dayjs().add(i+1, 'day').format("dddd, MMMM D YYYY")
           var forecastDateDisplay = document.createElement('h5');
           forecastDateDisplay.textContent = forecastDate;
           forecastWeatherEl.append(forecastDateDisplay);
 
-          // Icon
           var forecastIcon = document.createElement('img');
           forecastIcon.src = iconUrl;
           forecastWeatherEl.append(forecastIcon);
 
-          // Temp
           var forecastTemp = document.createElement("p");
           forecastTemp.innerHTML = "Temp: " + ((data.list[i].main.temp - 273.15) * 1.8 + 32).toFixed(1) + " &#176F";
           forecastWeatherEl.append(forecastTemp);
 
-          // Wind
           var forecastWind = document.createElement("p");
           forecastWind.innerHTML = "Wind: " + data.list[i].wind.speed + " MPH";
           forecastWeatherEl.append(forecastWind);
 
-          // Humidity
           var forecastHum = document.createElement("p");
           forecastHum.innerHTML = "Humidity: " + data.list[i].main.humidity + "%";
           forecastWeatherEl.append(forecastHum);
 
           forecastEls[i].append(forecastWeatherEl);
-    }
+      }
         })    
         }
         })
-
-      
-
-
   };
+
+// 
+function displaySearchHistory(){
+  historyEl.innerHTML = "";
+  for (let i = 0; i < searchHistory.length; i++) {
+      var historyItem = document.createElement("input");
+      historyItem.setAttribute("type", "text");
+      historyItem.setAttribute("readonly", true);
+      historyItem.setAttribute("class", "form-control d-block bg-white");
+      historyItem.setAttribute("value", searchHistory[i]);
+      historyItem.addEventListener("click", function () {
+        getCityWeather(historyItem.value);
+      })
+      historyEl.append(historyItem);
+  }
+};
 
 weatherFormEl.addEventListener('submit', formSubmitHandler);

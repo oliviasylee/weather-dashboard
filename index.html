@@ -19,6 +19,7 @@
       <h1 class="app-title"><i class="fa-solid fa-cloud-sun"></i>Weather Dashboard</h1>
     </header>
   
+    <!-- Search for a city -->
     <main class="flex-row justify-space-between">
       <div class="col-lg-4 col-md-4">
         <div class="card">
@@ -27,13 +28,13 @@
             <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" placeholder="e.g. Atlanta, Seoul, San diego" />
             <button type="submit" class="btn" id="search-button">Search</button>
           </form>
-          <form id="history"></form>
+          
         </div>
 
+        <!-- Weather history -->
         <div class="card">
           <h4 class="card-header text-uppercase">History</h4>
-          <div id="history-buttons" class="card-body">
-          </div>
+          <form id="history"></form>
         </div>
        
       </div>
