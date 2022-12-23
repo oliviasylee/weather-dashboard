@@ -7,7 +7,7 @@ The web application is still in progress - local storage.
 
 ## Usage
 To access the application, click the screenshot.
-[![weather-dashboard-screenshot](Assets/images/screenshot-weather-dashboard.jpg)](https://oliviasylee.github.io/weather-dashboard/)
+[![weather-dashboard-screenshot](Assets/images/screenshot-weather-dashboard.png)](https://oliviasylee.github.io/weather-dashboard/)
 
 ## Technology
 - HTML
