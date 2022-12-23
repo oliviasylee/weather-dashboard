@@ -24,17 +24,18 @@
         <div class="card">
           <h4 class="card-header text-uppercase">Search for a city</h4>
           <form id="weather-form" class="card-body">
-            <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" placeholder="e.g. Atlanta" />
-            <button type="submit" class="btn">Search</button>
+            <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" placeholder="e.g. Atlanta, Seoul, San diego" />
+            <button type="submit" class="btn" id="search-button">Search</button>
           </form>
           <form id="history"></form>
         </div>
-        <!-- <div class="card">
-          <h3 class="card-header text-uppercase">History</h3>
+
+        <div class="card">
+          <h4 class="card-header text-uppercase">History</h4>
           <div id="history-buttons" class="card-body">
           </div>
         </div>
-        -->
+       
       </div>
       
       <!-- Current weather -->
@@ -53,12 +54,14 @@
           <div class="col-md-12">
           <h4 id="forecastTitle">5-Day Forecast:</h4>
       
-      <div class="row">
-        <div class="col-md-2 forecast text-black m-2 rounded"></div>
-        <div class="col-md-2 forecast text-black m-2 rounded"></div>
-        <div class="col-md-2 forecast text-black m-2 rounded"></div>
-        <div class="col-md-2 forecast text-black m-2 rounded"></div>
-        <div class="col-md-2 forecast text-black m-2 rounded"></div>
+      <!-- <div class="row"> -->
+        <div class="card-container">
+          
+        <div class="forecast text-black mb-3 rounded"></div>
+        <div class="forecast text-black mb-3 rounded"></div>
+        <div class="forecast text-black mb-3 rounded"></div>
+        <div class="forecast text-black mb-3 rounded"></div>
+        <div class="forecast text-black mb-3 rounded"></div>
     </div>   
     </div>
     </div>

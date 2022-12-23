@@ -39,6 +39,7 @@
 
 .forecast {
   background-color: #e5e5e5;
+  padding: 10px;
 }
 
 #forecastTitle {
@@ -194,6 +195,12 @@
   .card-body {
     padding: 2.5%;
   }
+
+  .card-container {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
   
   /* FORM */
   .form-label,

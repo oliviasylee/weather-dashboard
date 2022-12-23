@@ -3,13 +3,21 @@ var cityNameInputEl = document.querySelector('#cityname');
 var descriptionContainer = document.querySelector(".description");
 var currentWeatherEl = document.getElementById("currentWeather");
 var fivedayEl = document.getElementById("fivedayWeather");
+var searchEl = document.getElementById("search-button");
+var cityEl = document.getElementById("enter-city");
+let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 const key="1362316676e7462ce8cb9c952d85a52f"
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
+  // Save searched city in local storage
   var cityName = cityNameInputEl.value.trim();
+  getCityWeather(cityName);
+  searchHistory.push(cityName);
+  localStorage.setItem("search", JSON.stringify(searchHistory));
+  // renderSearchHistory();
 
   if (cityName) {
     getCityWeather(cityName);
@@ -18,6 +26,7 @@ var formSubmitHandler = function (event) {
   } else {
     alert('Please enter a city!');
   }
+
 };
 
 function getCityWeather(city) {
@@ -126,6 +135,10 @@ function getCityWeather(city) {
         })    
         }
         })
+
+      
+
+
   };
 
 weatherFormEl.addEventListener('submit', formSubmitHandler);
