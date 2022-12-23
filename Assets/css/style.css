@@ -33,6 +33,19 @@
     line-height: 1.25;
   }
   
+  h4 {
+    color: black;
+  }
+
+.forecast {
+  background-color: #e5e5e5;
+}
+
+#forecastTitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
   main {
     margin: 20px auto;
     width: 94%;
@@ -40,7 +53,7 @@
   
   .remove {
     display: none;
-}
+  }
 
   p {
     font-size: 1.2rem;
@@ -54,17 +67,17 @@
     display: block;
     margin: 5px 0;
     border-radius: var(--border-radius);
-    color: var(--primary);
+    color: black;
     border: none;
     outline: none;
-    background-color: var(--light-dark);
+    background-color: #F2EDDC;
     box-shadow: 3px 3px var(--dark);
     transform: translate(-1px, -1px);
   }
   
    .btn:hover {
-    color: var(--primary);
-    background-color: var(--tertiary);
+    color: black;
+    background-color: #e5e5e5;
     transform: translate(0, 0);
     box-shadow: 2px 2px var(--dark);
   }
@@ -148,7 +161,21 @@
   .icon-success {
     color: rgb(29, 153, 255);
   }
+
+  .subtitle {
+    text-decoration: underline;
+    text-underline-offset: 10px;
+  }
   
+  .results {
+    border: 2px solid #e5e5e5;
+    padding-left: 10px;
+  }
+
+  #cityTitle{
+    margin: auto;
+  }
+
   /* CARDS */
   .card {
     margin: 0 0 20px 0;
