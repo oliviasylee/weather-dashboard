@@ -1,27 +1,25 @@
 var weatherFormEl = document.querySelector('#weather-form');
 var cityNameInputEl = document.querySelector('#cityname');
-var descriptionContainer = document.querySelector(".description");
 var currentWeatherEl = document.querySelector("#currentWeather");
 var fivedayEl = document.querySelector("#fivedayWeather");
 var searchEl = document.querySelector("#search-button");
-var cityEl = document.querySelector("#enter-city");
 var historyEl = document.querySelector("#history");
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 const key="1362316676e7462ce8cb9c952d85a52f"
 
- // Search button
+ // Button for search for a city
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
   var cityName = cityNameInputEl.value.trim();
 
   if (cityName.length > 0) {
-    searchHistory.push(cityName);
-    getCityWeather(cityName);
-    // Save searched city in local storage
-    localStorage.setItem("search", JSON.stringify(searchHistory));
-    displaySearchHistory();
-    cityNameInputEl.value = '';
+      searchHistory.push(cityName);
+      getCityWeather(cityName);
+      // Save searched city in local storage
+      localStorage.setItem("search", JSON.stringify(searchHistory));
+      displaySearchHistory();
+      cityNameInputEl.value = '';
 
   } else {
     alert('Please enter a city!');
@@ -94,8 +92,8 @@ function getCityWeather(city) {
         
             fivedayEl.classList.remove("d-none");
         
-        // loop for 5-day forecast date + icon, temp, wind, humidity
-        const forecastEls = document.querySelectorAll(".forecast");
+        // Loop for 5-day forecast date + icon, temp, wind, humidity
+        var forecastEls = document.querySelectorAll(".forecast");
         
         for (i = 0; i < forecastEls.length; i++) {
         forecastEls[i].innerHTML = "";
@@ -103,7 +101,7 @@ function getCityWeather(city) {
           var iconUrl = "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png";
           var forecastWeatherEl = document.createElement('div');
 
-          const forecastDate = dayjs().add(i+1, 'day').format("dddd, MMMM D YYYY")
+          var forecastDate = dayjs().add(i+1, 'day').format("dddd, MMMM D YYYY")
           var forecastDateDisplay = document.createElement('h5');
           forecastDateDisplay.textContent = forecastDate;
           forecastWeatherEl.append(forecastDateDisplay);
@@ -125,11 +123,11 @@ function getCityWeather(city) {
           forecastWeatherEl.append(forecastHum);
 
           forecastEls[i].append(forecastWeatherEl);
-      }
-        })    
         }
-        })
-  };
+      })    
+    }
+  })
+};
 
 function displaySearchHistory(){
   historyEl.innerHTML = "";
@@ -149,7 +147,7 @@ function displaySearchHistory(){
           console.log(historyButtons[i].value);
         })
       }
-}
+};
 
 displaySearchHistory();
 
