@@ -1,34 +1,31 @@
 var weatherFormEl = document.querySelector('#weather-form');
 var cityNameInputEl = document.querySelector('#cityname');
 var descriptionContainer = document.querySelector(".description");
-var currentWeatherEl = document.getElementById("currentWeather");
-var fivedayEl = document.getElementById("fivedayWeather");
-var searchEl = document.getElementById("search-button");
-var cityEl = document.getElementById("enter-city");
-var historyEl = document.getElementById("history");
+var currentWeatherEl = document.querySelector("#currentWeather");
+var fivedayEl = document.querySelector("#fivedayWeather");
+var searchEl = document.querySelector("#search-button");
+var cityEl = document.querySelector("#enter-city");
+var historyEl = document.querySelector("#history");
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
-
 const key="1362316676e7462ce8cb9c952d85a52f"
 
+ // Search button
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
-  // Save searched city in local storage
   var cityName = cityNameInputEl.value.trim();
-  getCityWeather(cityName);
-  searchHistory.push(cityName);
-  localStorage.setItem("search", JSON.stringify(searchHistory));
-  displaySearchHistory();
-  // Add "if city name === null, it won't save in local storage" later
 
-  if (cityName) {
+  if (cityName.length > 0) {
+    searchHistory.push(cityName);
     getCityWeather(cityName);
-
+    // Save searched city in local storage
+    localStorage.setItem("search", JSON.stringify(searchHistory));
+    displaySearchHistory();
     cityNameInputEl.value = '';
+
   } else {
     alert('Please enter a city!');
   }
-
 };
 
 function getCityWeather(city) {
@@ -52,18 +49,18 @@ function getCityWeather(city) {
           // Date + Icon
           var todayDate = dayjs().format("dddd, MMMM D YYYY")
           cityTitle.innerHTML = data.name + " (" + todayDate + ") ";
-        //  Another way to display Date 
-        //  const dt = data.dt;
-        //  var today = new Date(dt*1000);
-        //  console.log(today.toDateString());
-        //  cityTitle.append(today.toDateString());
-        //  cityTitle.innerHTML = data.name + " (" + today.toDateString() + ") ";
+          //  Another way to display Date 
+          //  const dt = data.dt;
+          //  var today = new Date(dt*1000);
+          //  console.log(today.toDateString());
+          //  cityTitle.append(today.toDateString());
+          //  cityTitle.innerHTML = data.name + " (" + today.toDateString() + ") ";
 
+          // Icon is an object, {icon: '02n'}, object inside array
           var iconUrl = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
           console.log(data.weather[0].icon);
           console.log(iconUrl);
           
-          // Icon is an object, {icon: '02n'}, object inside array
           var todayIcon = document.createElement('img');
           todayIcon.src = iconUrl;
           document.getElementById('cityTitle').appendChild(todayIcon);
@@ -84,7 +81,7 @@ function getCityWeather(city) {
         })
       }})
       
-    // Parse response to display forecast for next 5 days
+      // Parse response to display forecast for next 5 days
       var fiveDaysUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city+"&appid=" + key +"&cnt=5";
       console.log(fiveDaysUrl)
   
@@ -97,13 +94,13 @@ function getCityWeather(city) {
         
             fivedayEl.classList.remove("d-none");
         
-    // loop for 5-day forecast date + icon, temp, wind, humidity
+        // loop for 5-day forecast date + icon, temp, wind, humidity
         const forecastEls = document.querySelectorAll(".forecast");
         
-    for (i = 0; i < forecastEls.length; i++) {
-    forecastEls[i].innerHTML = "";
+        for (i = 0; i < forecastEls.length; i++) {
+        forecastEls[i].innerHTML = "";
 
-    var iconUrl = "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png";
+          var iconUrl = "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png";
           var forecastWeatherEl = document.createElement('div');
 
           const forecastDate = dayjs().add(i+1, 'day').format("dddd, MMMM D YYYY")
@@ -134,20 +131,26 @@ function getCityWeather(city) {
         })
   };
 
-// 
 function displaySearchHistory(){
   historyEl.innerHTML = "";
-  for (let i = 0; i < searchHistory.length; i++) {
+  for (var i = 0; i < searchHistory.length; i++) {
       var historyItem = document.createElement("input");
       historyItem.setAttribute("type", "text");
       historyItem.setAttribute("readonly", true);
-      historyItem.setAttribute("class", "form-control d-block bg-white");
+      historyItem.setAttribute("class", "form-control d-block bg-white history-btns");
       historyItem.setAttribute("value", searchHistory[i]);
-      historyItem.addEventListener("click", function () {
-        getCityWeather(historyItem.value);
-      })
       historyEl.append(historyItem);
   }
-};
+    
+      var historyButtons = document.querySelectorAll(".history-btns")
+        for (let i = 0; i< historyButtons.length; i++){
+          historyButtons[i].addEventListener("click", function(){
+          getCityWeather(historyButtons[i].value);
+          console.log(historyButtons[i].value);
+        })
+      }
+}
+
+displaySearchHistory();
 
 weatherFormEl.addEventListener('submit', formSubmitHandler);
