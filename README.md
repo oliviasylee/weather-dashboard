@@ -1,4 +1,4 @@
-# Weather-dashboard
+# Weather dashboard
 ## Description
 This is a web application that allows users to search for a city and get the current weather and a 5-day forecast. Previous search history is saved in the user's local storage.
 The web application is built using the OpenWeatherMap API and is designed to run in a browser. It features dynamically updated HTML and CSS and uses local storage to store persistent data. 
